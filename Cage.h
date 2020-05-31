@@ -1,9 +1,12 @@
 #ifndef __CAGE_H
 #define __CAGE_H
 #include "CageSize.h"
-#include "Dinosaur.h"
-#include "Vector.h"
+#include "Dinosaur.cpp"
+#include "Vector.cpp"
 
+/**
+ * @brief A class that represents a cage in a zoo.
+ */
 class Cage {
 
 private:
@@ -19,8 +22,6 @@ public:
     void deleteDynamicFields();
     Cage();
     Cage(CageSize, char*, Era);
-    Cage(const Cage&);
-    Cage& operator=(const Cage&);
     ~Cage();
     int getId() const;
     CageSize getCageSize() const;

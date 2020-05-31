@@ -1,9 +1,13 @@
 #ifndef __ZOO_H
 #define __ZOO_H
 
-#include "Cage.h"
-#include "Vector.h"
+#include "Cage.cpp"
+#include "Vector.cpp"
 
+/**
+ * @brief A class that represents the Zoopark.
+ * 
+ */
 class Zoo {
 
 private:

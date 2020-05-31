@@ -1,6 +1,11 @@
 #ifndef __VECTOR_H
 #define __VECTOR_H
 
+/**
+ * @brief A template class that is representing the C++ vector<T>.
+ * 
+ * @tparam T - type of objects to put in the vector.
+ */
 template <class T>
 class Vector {
 
@@ -10,8 +15,6 @@ private:
     int maxSize;
 public:
     Vector();
-    // Vector(const Vector&);
-    // Vector& operator=(const Vector&);
     ~Vector();
     void pushBack(T);
     T get(int);

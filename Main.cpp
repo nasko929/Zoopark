@@ -1,18 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include "Zoo.cpp"
-#include "Vector.cpp"
-#include "Era.h"
-#include "Cage.cpp"
-#include "Dinosaur.cpp"
 #include <ctime>
 #define COUT std::cout
 #define CIN std::cin
 #define ENDL "\n"
 
+/**
+ * @brief - Main method which plays the role of controller of the actions in the program.
+ * 
+ * @return int - exit code.
+ */
 int main() {
 
     Zoo* zoo = new Zoo;
+    bool areDinosaursStarving = (zoo -> getFoodAmount() < 0);
     int command;
     do {
         COUT << "Welcome to your Zoo." << ENDL;
@@ -27,6 +29,10 @@ int main() {
         << ENDL
         << "You can choose (from 1 to 7): ";
         CIN >> command;
+        if (areDinosaursStarving && command != 4) {
+            COUT << "You have to feed your dinosaurs first." << ENDL << ENDL;
+            continue;
+        }
         switch(command) {
             case 1:
                 zoo -> addNewDinosaur();
@@ -42,6 +48,7 @@ int main() {
                 COUT << "Input the number of units of food you want to add to the zoo: ";
                 CIN >> unitsOfFood;
                 zoo -> loadStorageWithFood(unitsOfFood);
+                areDinosaursStarving = (zoo -> getFoodAmount() < 0);
                 break;
             case 5:
                 zoo -> showInfoAboutCages();

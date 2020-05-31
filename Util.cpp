@@ -3,6 +3,13 @@
 
 #include "Util.h"
 
+/**
+ * @brief Method that reads an integer on a single-line from the buffer.
+ * 
+ * @param buffer - the content of the input file.
+ * @param start - the start index of the integer.
+ * @return ReadResult - collected information from the reading. Returns -1 in case of an error.
+ */
 ReadResult Util::readInt(char* buffer, int start) {
     ReadResult result;
     result.string = nullptr;
@@ -24,6 +31,13 @@ ReadResult Util::readInt(char* buffer, int start) {
     return result;
 }
 
+/**
+ * @brief Method that reads a string line from the buffer.
+ * 
+ * @param buffer - the content of the input file.
+ * @param start - the start index of the integer.
+ * @return ReadResult - collected information from the reading.
+ */
 ReadResult Util::readString(char* buffer, int start) {
     ReadResult result;
     result.number = 0;
@@ -40,6 +54,12 @@ ReadResult Util::readString(char* buffer, int start) {
     return result;
 }
 
+/**
+ * @brief Method that is similar to toString() for enums.
+ * 
+ * @param era - the enum value
+ * @return const char* - the string representation of the enum value.
+ */
 const char* Util::eraToString(Era era) {
     switch (era) {
         case CRETACEOUS:
@@ -51,6 +71,12 @@ const char* Util::eraToString(Era era) {
     }
 }
 
+/**
+ * @brief Method that is similar to toString() for enums.
+ * 
+ * @param cageSize - the enum value
+ * @return const char* - the string representation of the enum value.
+ */
 const char* Util::cageSizeToString(CageSize cageSize) {
     switch (cageSize) {
         case SMALL:
@@ -62,6 +88,12 @@ const char* Util::cageSizeToString(CageSize cageSize) {
     }
 }
 
+/**
+ * @brief Method that is similar to toString() for enums.
+ * 
+ * @param dinosaurClass - the enum value
+ * @return const char* - the string representation of the enum value.
+ */
 const char* Util::dinosaurClassToString(DinosaurClass dinosaurClass) {
     switch (dinosaurClass) {
         case HERBIVORE:
@@ -75,6 +107,12 @@ const char* Util::dinosaurClassToString(DinosaurClass dinosaurClass) {
     }
 }
 
+/**
+ * @brief Method that is similar to toString() for enums.
+ * 
+ * @param gender - the enum value
+ * @return const char* - the string representation of the enum value.
+ */
 const char* Util::genderToString(Gender gender) {
     switch (gender) {
         case MALE:
@@ -84,6 +122,12 @@ const char* Util::genderToString(Gender gender) {
     }
 }
 
+/**
+ * @brief Method that is similar to toString() for enums.
+ * 
+ * @param foodType - the enum value
+ * @return const char* - the string representation of the enum value.
+ */
 const char* Util::foodTypeToString(FoodType foodType) {
     switch (foodType) {
         case GRASS:

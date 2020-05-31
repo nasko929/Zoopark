@@ -6,6 +6,9 @@
 #include "FoodType.h"
 #include "Era.h"
 
+/**
+ * @brief A class that represents the dinosaur object.
+ */
 class Dinosaur {
 
 private:
@@ -22,8 +25,6 @@ public:
     void deleteDynamicFields();
     Dinosaur();
     Dinosaur(char*, char*, Gender, DinosaurClass, FoodType, int);
-    Dinosaur(const Dinosaur&);
-    Dinosaur& operator=(const Dinosaur&);
     ~Dinosaur();
     int getId() const;
     char* getName() const;

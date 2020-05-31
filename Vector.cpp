@@ -3,6 +3,9 @@
 
 #include "Vector.h"
 
+/**
+ * @brief Construct a new Vector< T>:: Vector object
+ */
 template<class T>
 Vector<T>::Vector() {
     this -> arr = new T[1];
@@ -10,11 +13,19 @@ Vector<T>::Vector() {
     this -> maxSize = 1;
 }
 
+/**
+ * @brief Destroy the Vector< T>:: Vector object
+ */
 template<class T>
 Vector<T>::~Vector() {
     delete [] arr;
 }
 
+/**
+ * @brief - Method that adds object to the end of the vector.
+ * 
+ * @param obj - object to be added.
+ */
 template<class T>
 void Vector<T>::pushBack(T obj) {
     if (this -> current == this -> maxSize - 1) {
@@ -29,11 +40,20 @@ void Vector<T>::pushBack(T obj) {
     this -> arr[current++] = obj;
 }
 
+/**
+ * @brief Method that returns the current size of the vector.
+ */
 template<class T>
 int Vector<T>::size() {
     return this -> current;
 }
 
+/**
+ * @brief Method that returns an object at specific index.
+ * 
+ * @param i - the specific index.
+ * @return T - the object at index i, if i is in range. Otherwise, the first object in the vector.
+ */
 template<class T>
 T Vector<T>::get(int i) {
     if (i < current) {
@@ -42,6 +62,12 @@ T Vector<T>::get(int i) {
     return arr[0];
 }
 
+/**
+ * @brief Method that sets an object at specific index.
+ *
+ * @param obj - the object to be set.
+ * @param i - the specific index for the object to be set.
+ */
 template<class T>
 void Vector<T>::set(T obj, int i) {
     if (i < current) {
@@ -49,16 +75,24 @@ void Vector<T>::set(T obj, int i) {
     }
 }
 
+/**
+ * @brief Method that removes an object at specific index.
+ * 
+ * @param i - the specific index to be removed from the vector.
+ */
 template<class T>
-void Vector<T>::remove(int index) {
-    if (index < current) {
-        for (; index < current - 1; index ++) {
-            arr[index] = arr[index + 1];
+void Vector<T>::remove(int i) {
+    if (i < current) {
+        for (; i < current - 1; i ++) {
+            arr[i] = arr[i + 1];
         }
-        current --;
+        current--;
     }
 }
 
+/**
+ * @brief Method that removes the last element of the vector.
+ */
 template<class T>
 void Vector<T>::pop() {
     if (current > 0) {

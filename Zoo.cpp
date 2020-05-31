@@ -13,20 +13,39 @@
 #include <fstream>
 #include <cstring>
 
+/**
+ * @brief A method that deletes all dynamic fields.
+ */
 void Zoo::deleteDynamicFields() {
+    for (int i = 0; i < cages -> size(); i ++) {
+        delete cages -> get(i);
+    }
     delete this -> cages;
 }
 
+/**
+ * @brief Construct a new Zoo object
+ * A default constructor.
+ */
 Zoo::Zoo() {
     this -> cages = new Vector<Cage*>;
     this -> foodAmount = 0;
     this -> initZoo();
 }
 
+/**
+ * @brief Destroy the Zoo object
+ */
 Zoo::~Zoo() {
     this -> deleteDynamicFields();
 }
 
+/**
+ * @brief A method that initializes the Zoopark.
+ * 
+ * It searches for "information.txt" file - if found, takes the information from there.
+ * If not, it creates random cages.
+ */
 void Zoo::initZoo() {
     std::ifstream inputFile("information.txt", std::ios::in);
 
@@ -158,10 +177,39 @@ void Zoo::initZoo() {
 
         this -> cages -> pushBack(cage);
     }
+    time_t now = time(nullptr);
+    int currentTimestamp = (int)now;
+    int secondsSinceLastZooEntrance = currentTimestamp - now;
+    // One day in the zoo is 30 minutes in real-life. 30 minutes = 1800 secs.
+    int zooDaysSinceLastZooEntrance = secondsSinceLastZooEntrance / 1800 + (secondsSinceLastZooEntrance % 1800 != 0);
+    int neededFood = zooDaysSinceLastZooEntrance * this -> foodRequiredForAllCages();
+
+    this -> setFoodAmount(this -> getFoodAmount() - neededFood);
+    if (this -> getFoodAmount() < 0) {
+        COUT << "!!!Your zoo is in food deficit. Your first job now is to load the food storages with at least " << 
+        -this -> getFoodAmount() << "food units. Otherwise, your dinosaurs will die.!!!" << ENDL << ENDL;
+    } else {
+        COUT << "Everything is going well, your dinosaurs have been fed well since you were not here." << ENDL << ENDL;
+    }
+
 }
 
+/**
+ * @brief Method that returns how much food is needed for one day in the zoo.
+ * 
+ * @return int - amount of food.
+ */
+int Zoo::foodRequiredForAllCages() {
+    int foodRequired = 0;
+    for (int i = 0; i < this -> getCages() -> size(); i++) {
+        foodRequired += this -> getCages() -> get(i) -> getNeededAmountOfFood();
+    }
+    return foodRequired;
+}
 
-
+/**
+ * @brief Method that initializes random cages if no input file found or found, but not in right format.
+ */
 void Zoo::initializeRandomCages() {
     while (this -> cages -> size() != 0) {
         this -> cages -> pop();
@@ -194,6 +242,9 @@ void Zoo::initializeRandomCages() {
     this -> setFoodAmount(100);
 }
 
+/**
+ * @brief Method that adds new dinosaur.
+ */
 void Zoo::addNewDinosaur() {
     char *name, *dinoType;
     name = new char[128];
@@ -291,6 +342,10 @@ void Zoo::addNewDinosaur() {
     COUT << "Dinosaur added successfully in cage with id: " << cage -> getId() << ENDL;
 }
 
+/**
+ * @brief Method that creates a new cage.
+ * 
+ */
 void Zoo::createNewCage() {
     int cageSize, era;
     char* climate;
@@ -325,6 +380,10 @@ void Zoo::createNewCage() {
     COUT << "Successfully created new cage with id: " << cage -> getId() << ENDL << ENDL;
 }
 
+/**
+ * @brief Method that removes dinosaur from a cage.
+ * 
+ */
 void Zoo::removeDinosaur() {
     COUT << "In which cage is the dinosaur that you want to remove? " << ENDL;
     bool anyDinosaurs = 0;
@@ -383,6 +442,10 @@ void Zoo::removeDinosaur() {
     }
 }
 
+/**
+ * @brief Method that displays information about all cages.
+ * 
+ */
 void Zoo::showInfoAboutCages() {
     int numberOfCages = this -> getCages() -> size();
     for (int i = 0; i < numberOfCages; i++) {
@@ -396,6 +459,11 @@ void Zoo::showInfoAboutCages() {
     COUT << "-----------" << ENDL << ENDL;
 }
 
+/**
+ * @brief Method that shows information about all dinosaurs in a given cage.
+ * 
+ * @param cageId - the id of the cage, which dinosaurs we want to see.
+ */
 void Zoo::showInfoAboutDinosaursInCage(int cageId) {
     int numberOfCages = this -> getCages() -> size();
     for (int i = 0; i < numberOfCages; i++) {
@@ -420,6 +488,11 @@ void Zoo::showInfoAboutDinosaursInCage(int cageId) {
     COUT << "There is not a cage with such id." << ENDL << ENDL;
 }
 
+/**
+ * @brief Method that loads storage with certain amount of units of food.
+ * 
+ * @param unitsOfFood - the amount of food.
+ */
 void Zoo::loadStorageWithFood(int unitsOfFood) {
     this -> setFoodAmount(this -> getFoodAmount() + unitsOfFood);
     COUT << ENDL;

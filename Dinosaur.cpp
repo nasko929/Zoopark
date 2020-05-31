@@ -5,13 +5,20 @@
 #include <iostream>
 #include <cstring>
 
+// Number of created objects.
 int Dinosaur::numberOfDinosaurs = 0;
 
+/**
+ * @brief Method that deletes all dynamic fields from the object. It is called in the destructor.
+ */
 void Dinosaur::deleteDynamicFields() {
     delete [] this -> name;
     delete [] this -> dinoType;
 }
 
+/**
+ * @brief Construct a new Dinosaur:: Dinosaur object
+ */
 Dinosaur::Dinosaur() {
     this -> id = ++numberOfDinosaurs;
     this -> name = new char[1];
@@ -21,6 +28,16 @@ Dinosaur::Dinosaur() {
     this -> amountOfFood = 0;
 }
 
+/**
+ * @brief Construct a new Dinosaur:: Dinosaur object
+ * 
+ * @param name - Dinosaur's name.
+ * @param dinoType - Dinosaur's dinoType.
+ * @param gender - Dinosaur's gender.
+ * @param dinosaurClass - Dinosaur's class.
+ * @param foodType - Dinosaur's food type.
+ * @param amountOfFood - The amount of food that dinosaur eats.
+ */
 Dinosaur::Dinosaur(char* name, char* dinoType, Gender gender, DinosaurClass dinosaurClass, FoodType foodType, int amountOfFood) : Dinosaur() {
     this -> setName(name);
     this -> setDinoType(dinoType);
@@ -30,26 +47,9 @@ Dinosaur::Dinosaur(char* name, char* dinoType, Gender gender, DinosaurClass dino
     this -> setAmountOfFood(amountOfFood);
 }
 
-Dinosaur::Dinosaur(const Dinosaur& dinosaur) {
-    std::cout << "COPY-CONSTRUCTOR dino" << std::endl;
-    this-> id = dinosaur.getId();
-    this -> setName(dinosaur.getName());
-    this -> setDinoType(dinosaur.getDinoType());
-    this -> setGender(dinosaur.getGender());
-    this -> setDinosaurClass(dinosaur.getDinosaurClass());
-    this -> setFoodType(dinosaur.getFoodType());
-}
-
-Dinosaur& Dinosaur::operator=(const Dinosaur& dinosaur) {
-    this -> deleteDynamicFields();
-    this -> id = dinosaur.getId();
-    this -> setName(dinosaur.getName());
-    this -> setDinoType(dinosaur.getDinoType());
-    this -> setGender(dinosaur.getGender());
-    this -> setDinosaurClass(dinosaur.getDinosaurClass());
-    this -> setFoodType(dinosaur.getFoodType());
-}
-
+/**
+ * @brief Destroy the Dinosaur:: Dinosaur object
+ */
 Dinosaur::~Dinosaur() {
     this -> deleteDynamicFields();
 }

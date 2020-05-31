@@ -8,6 +8,11 @@
 #include "Gender.h"
 #include "ReadResult.h"
 
+/**
+ * @brief A util class.
+ * 
+ * This class is making the code more clear as it divides the not so good-looking logic into separate class.
+ */
 class Util {
 
 public:

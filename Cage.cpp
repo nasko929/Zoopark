@@ -5,12 +5,19 @@
 #include <iostream>
 #include <cstring>
 
+// Number of created objects.
 int Cage::numberOfCages = 0;
 
+/**
+ * @brief Method that deletes all dynamic fields from the object. It is called in the destructor.
+ */
 void Cage::deleteDynamicFields() {
     delete this -> dinosaurs;
 }
 
+/**
+ * @brief Construct a new Cage object
+ */
 Cage::Cage() {
     this -> id = ++numberOfCages;
     this -> dinosaurs = new Vector<Dinosaur*>;
@@ -18,31 +25,22 @@ Cage::Cage() {
     this -> climate[0] = '\0';
     this -> neededAmountOfFood = 0;
 }
-
+/**
+ * @brief Construct a new Cage object
+ * 
+ * @param cageSize - Cage's size.
+ * @param climate - Cage's climate.
+ * @param era - Cage's era.
+ */
 Cage::Cage(CageSize cageSize, char* climate, Era era): Cage() {
     this -> setCageSize(cageSize);
     this -> setClimate(climate);
     this -> setEra(era);
 }
 
-Cage::Cage(const Cage& cage) {
-    std::cout << "COPY-CONSTRUCT CAGE" << std::endl;
-    this -> id = cage.getId();
-    this -> setCageSize(cage.getCageSize());
-    this -> setClimate(cage.getClimate());
-    this -> setDinosaurs(cage.getDinosaurs());
-    this -> setEra(cage.getEra());
-}
-
-Cage& Cage::operator=(const Cage& cage) {
-    this -> deleteDynamicFields();
-    this -> id = cage.getId();
-    this -> setCageSize(cage.getCageSize());
-    this -> setClimate(cage.getClimate());
-    this -> setDinosaurs(cage.getDinosaurs());
-    this -> setEra(cage.getEra());
-}
-
+/**
+ * @brief Destroy the Cage object
+ */
 Cage::~Cage() {
     this -> deleteDynamicFields();
 }
