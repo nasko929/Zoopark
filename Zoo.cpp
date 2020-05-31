@@ -179,15 +179,18 @@ void Zoo::initZoo() {
     }
     time_t now = time(nullptr);
     int currentTimestamp = (int)now;
-    int secondsSinceLastZooEntrance = currentTimestamp - now;
+    int secondsSinceLastZooEntrance = currentTimestamp - timestamp;
     // One day in the zoo is 30 minutes in real-life. 30 minutes = 1800 secs.
     int zooDaysSinceLastZooEntrance = secondsSinceLastZooEntrance / 1800 + (secondsSinceLastZooEntrance % 1800 != 0);
-    int neededFood = zooDaysSinceLastZooEntrance * this -> foodRequiredForAllCages();
-
+    int foodPerDay = this -> foodRequiredForAllCages();
+    int neededFood = zooDaysSinceLastZooEntrance * foodPerDay;
+    
+    COUT << "You did not see your zoo in " << zooDaysSinceLastZooEntrance << " zoo days." << ENDL;
+    COUT << "Your zoo needs " << foodPerDay << " food units per day so that your dinosaurs do not die! Keep that in mind! " << ENDL;
     this -> setFoodAmount(this -> getFoodAmount() - neededFood);
     if (this -> getFoodAmount() < 0) {
         COUT << "!!!Your zoo is in food deficit. Your first job now is to load the food storages with at least " << 
-        -this -> getFoodAmount() << "food units. Otherwise, your dinosaurs will die.!!!" << ENDL << ENDL;
+        -this -> getFoodAmount() << " food units. Otherwise, your dinosaurs will die.!!!" << ENDL << ENDL;
     } else {
         COUT << "Everything is going well, your dinosaurs have been fed well since you were not here." << ENDL << ENDL;
     }
